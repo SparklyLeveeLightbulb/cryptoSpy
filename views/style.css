@@ -1,0 +1,15 @@
+.logo {
+  max-width: 400px;
+  max-height: 400px;
+}
+
+button {
+  background-color: #29a329;
+  color: black;
+}
+
+.loginbody{
+  background-color: black;
+  color: #29a329;
+
+}
