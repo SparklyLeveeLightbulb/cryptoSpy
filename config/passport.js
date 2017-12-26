@@ -112,5 +112,5 @@ module.exports = function(passport) {
 
 
     }));
-
+   
 };
