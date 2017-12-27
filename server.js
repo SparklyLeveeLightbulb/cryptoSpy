@@ -34,7 +34,8 @@ app.use(cookieParser());
 
 // app.set('view engine', 'ejs');
 app.engine('html', cons.swig)
-app.set('views', path.join(__dirname, 'views'));
+// app.set('views', path.join(__dirname, 'views'));
+app.use(express.static(__dirname + '/views'))
 app.set('view engine', 'html'); // view engine might change with angular 2 being added
 
 
@@ -48,6 +49,7 @@ app.use(flash());
 // routes =============================
 
 require('./app/routes.js')(app, passport);
+
 
 
 // ====================================
