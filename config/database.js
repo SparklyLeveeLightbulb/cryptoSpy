@@ -3,6 +3,7 @@ const Sequelize = require('sequelize');
 const sequelize = new Sequelize({
   username: 'root',
   password: '',
+  database: 'cryptoSpy',
   host: 'localhost',
   dialect: 'mysql'
 });
@@ -36,3 +37,6 @@ const Coin = sequelize.define('coin', {
   lastValue: { type: Sequelize.INTEGER}
 
 });
+
+Agent.sync();
+Coin.sync();
