@@ -36,6 +36,10 @@ const Agent = sequelize.define('agent', {
   createdAt: {
     type: Sequelize.DATE,
     defaultValue: Sequelize.NOW
+  },
+  updatedAt: {
+    type: Sequelize.DATE,
+    defaultValue: Sequelize.NOW
   }
 
 });
@@ -52,6 +56,10 @@ const Coin = sequelize.define('coin', {
   createdAt: {
     type: Sequelize.DATE,
     defaultValue: Sequelize.NOW
+  },
+  updatedAt: {
+    type: Sequelize.DATE,
+    defaultValue: Sequelize.NOW
   }
 
 });
@@ -64,6 +72,10 @@ UserFollowing = sequelize.define('user_following', {
   compareValue: Sequelize.INTEGER,
   amountOwned: Sequelize.INTEGER,
   createdAt: {
+    type: Sequelize.DATE,
+    defaultValue: Sequelize.NOW
+  },
+  updatedAt: {
     type: Sequelize.DATE,
     defaultValue: Sequelize.NOW
   }

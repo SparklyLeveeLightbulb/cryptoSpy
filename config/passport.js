@@ -2,7 +2,7 @@
 				
 // load all the things we need
 var LocalStrategy   = require('passport-local').Strategy;
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcrypt-nodejs');
 
 var mysql = require('mysql');
 
