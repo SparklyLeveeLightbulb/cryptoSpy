@@ -26,6 +26,8 @@ sequelize
 const Agent = sequelize.define('agent', {
   id: {
     type: Sequelize.INTEGER,
+    autoIncrement: true,
+    unique: true,
     primaryKey: true
   },
   agentName: { type: Sequelize.STRING },
@@ -36,6 +38,8 @@ const Agent = sequelize.define('agent', {
 const Coin = sequelize.define('coin', {
   id: {
     type: Sequelize.INTEGER,
+    autoIncrement: true,
+    unique: true,
     primaryKey: true
   },
   coinName: { type: Sequelize.STRING },
