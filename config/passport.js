@@ -2,8 +2,17 @@
 				
 // load all the things we need
 var LocalStrategy   = require('passport-local').Strategy;
+var bcrypt = require('bcrypt');
 
 var mysql = require('mysql');
+
+	const generateHash = (password) => {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+  };
+  
+	const validPassword = (password, localPassword) => {
+    return bcrypt.compareSync(password, localPassword);
+  };
 
 var connection = mysql.createConnection({
 				  host     : 'localhost',
@@ -12,7 +21,7 @@ var connection = mysql.createConnection({
 				});
 
         // MUST CHANGE TO OUR DATABASE NAME
-connection.query('USE ');	
+connection.query('USE cryptoSpy');	
 
 // expose this function to our app using module.exports
 module.exports = function(passport) {
@@ -30,7 +39,7 @@ module.exports = function(passport) {
 
     // used to deserialize the user
     passport.deserializeUser(function(id, done) {
-		connection.query("select * from users where id = "+id,function(err,rows){	
+		connection.query("select * from agents where id = "+id,function(err,rows){	
 			  done(err, rows[0]);
 		  });
     });
@@ -52,28 +61,30 @@ module.exports = function(passport) {
 
 		// find a user whose username is the same as the forms username
 		// we are checking to see if the user trying to login already exists
-        connection.query("select * from users where username = '"+username+"'",function(err,rows){
+        connection.query("select * from agents where agentName = '"+username+"'",function(err,rows){
 			console.log(rows);
 			console.log("above row object");
 			if (err)
                 return done(err);
 			 if (rows.length) {
-                return done(null, false, req.flash('signupMessage', 'That username is already taken.'));
+                return done(null, false, req.flash('signupMessage', 'That Agent Name is already taken.'));
             } else {
 
 				// if there is no user with that username
                 // create the user
-                var newUserMysql = new Object();
+                var newAgentMysql = new Object();
 				
-				newUserMysql.username    = username;
-                newUserMysql.password = password; // use the generateHash function in our user model
+								newAgentMysql.agentName = username;
+                newAgentMysql.password = generateHash(password); // use the generateHash function in our user model
 			
-				var insertQuery = "INSERT INTO users ( username, password ) values ('" + username +"','"+ password +"')";
+				var insertQuery = "INSERT INTO agents ( agentName, password ) values ('" + username +"','"+ newAgentMysql.password +"')";
 					console.log(insertQuery);
 				connection.query(insertQuery,function(err,rows){
-				newUserMysql.id = rows.insertId;
+                    console.log(err);
+                    console.log(rows);
+				newAgentMysql.id = rows.insertId;
 				
-				return done(null, newUserMysql);
+				return done(null, newAgentMysql);
 				});	
             }	
 		});
@@ -93,15 +104,15 @@ module.exports = function(passport) {
     },
     function(req, username, password, done) { // callback with username and password from our form
 
-         connection.query("SELECT * FROM `users` WHERE `username` = '" + username + "'",function(err,rows){
+         connection.query("SELECT * FROM `agents` WHERE `agentName` = '" + username + "'",function(err,rows){
 			if (err)
                 return done(err);
 			 if (!rows.length) {
-                return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
-            } 
+                return done(null, false, req.flash('loginMessage', 'No Agent found.')); // req.flash is the way to set flashdata using connect-flash
+						} 
 			
 			// if the user is found but the password is wrong
-            if (!( rows[0].password == password))
+            if (!(validPassword(password, rows[0].password)))
                 return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
 			
             // all is well, return successful user

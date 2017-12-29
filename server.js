@@ -6,6 +6,10 @@ var connect = require('connect')
 var sequelize = require('sequelize');
 var passport = require('passport');
 var flash = require('connect-flash');
+var cons = require('consolidate');
+var path = require('path');
+
+
 
 var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -28,7 +32,11 @@ app.use(morgan('dev'));
 app.use(bodyParser());
 app.use(cookieParser());
 
-app.set('view engine', 'ejs'); // view engine might change with angular 2 being added
+// app.set('view engine', 'ejs');
+app.engine('html', cons.swig)
+// app.set('views', path.join(__dirname, 'views'));
+app.use(express.static(__dirname + '/views'))
+app.set('view engine', 'html'); // view engine might change with angular 2 being added
 
 
 // required for passport =============
@@ -37,10 +45,13 @@ app.use(session({secret: 'relinquishedloversinrome'}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+require('./config/passport')(passport);
+
 
 // routes =============================
 
 require('./app/routes.js')(app, passport);
+
 
 
 // ====================================
