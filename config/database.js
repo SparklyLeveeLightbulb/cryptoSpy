@@ -32,7 +32,15 @@ const Agent = sequelize.define('agent', {
   },
   agentName: { type: Sequelize.STRING },
   password: { type: Sequelize.STRING },
-  phoneNumber: { type: Sequelize.INTEGER}
+  phoneNumber: { type: Sequelize.INTEGER},
+  createdAt: {
+    type: Sequelize.DATE,
+    defaultValue: Sequelize.NOW
+  },
+  updatedAt: {
+    type: Sequelize.DATE,
+    defaultValue: Sequelize.NOW
+  }
 
 });
 const Coin = sequelize.define('coin', {
@@ -44,7 +52,15 @@ const Coin = sequelize.define('coin', {
   },
   coinName: { type: Sequelize.STRING },
   currentValue: { type: Sequelize.INTEGER},
-  lastValue: { type: Sequelize.INTEGER}
+  lastValue: { type: Sequelize.INTEGER},
+  createdAt: {
+    type: Sequelize.DATE,
+    defaultValue: Sequelize.NOW
+  },
+  updatedAt: {
+    type: Sequelize.DATE,
+    defaultValue: Sequelize.NOW
+  }
 
 });
 
@@ -55,6 +71,14 @@ UserFollowing = sequelize.define('user_following', {
   },
   compareValue: Sequelize.INTEGER,
   amountOwned: Sequelize.INTEGER,
+  createdAt: {
+    type: Sequelize.DATE,
+    defaultValue: Sequelize.NOW
+  },
+  updatedAt: {
+    type: Sequelize.DATE,
+    defaultValue: Sequelize.NOW
+  }
 });
 Agent.belongsToMany(Coin, { through: UserFollowing });
 Coin.belongsToMany(Agent, { through: UserFollowing });
