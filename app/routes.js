@@ -1,11 +1,11 @@
 // app.use(express.static(__dirname + '/views'));
-
+const path = require('path');
 module.exports = function(app, passport) {
 
   
 
   app.get('/', function(req, res) {
-    res.render('login')
+    res.sendFile(path.join(__dirname, '../views', '/login.html'));
   });
 
     // =====================================
@@ -51,11 +51,9 @@ module.exports = function(app, passport) {
   // =====================================
   // we will want this protected so you have to be logged in to visit
   // we will use route middleware to verify this (the isLoggedIn function)
-  // app.get('/profile', isLoggedIn, function(req, res) {
-  //     res.render('profile', {
-  //         user : req.user // get the user out of session and pass to template
-  //     });
-  // });
+  app.get('/profile', isLoggedIn, function(req, res) {
+    res.sendFile(path.join(__dirname, '../views', '/profile.html'));
+  });
 
 
 };
