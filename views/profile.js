@@ -28,16 +28,37 @@ app.factory('appFactory', ($http) => ({
     })
 },
 
+addCoins: (coinName, coinAmount, agent, callback) => {
+  let url = '/userCoins' + coinName;
+    var req = {
+      method: 'POST',
+      url: url,
+      headers: {
+        'Content-Type': 'application/JSON'
+      },
+      data: { amount: coinAmount, user: agent }
+    }
+
+    $http(req).then(function (results) {
+      callback(results)
+    }, function(results) {
+      callback(results);
+    });
+  
+}
+}));
+
     
 
 
-}));
 
 app.controller('cryptoCtrl',($scope, appFactory, $location) => {
 $scope.agentName;
+$scope.coinName;
 $scope.coinAmount;
-  $scope.coins = [{ coinName: 'Bitcoin', currentValue: 14000, amountOwned: 2 }, { coinName: 'Ethereum', currentValue: 5000, amountOwned: 5 }, { coinName: 'LiteCoin', currentValue: 1300, amountOwned: 2 }];
-$scope.submit = () => {
+$scope.coins = [{ coinName: 'Bitcoin', currentValue: 14000, amountOwned: 2 }, { coinName: 'Ethereum', currentValue: 5000, amountOwned: 5 }, { coinName: 'LiteCoin', currentValue: 1300, amountOwned: 2 }];
+
+  $scope.submit = () => {
   appFactory.getOnInit((response) => {
     $scope.coins = response;
   }, (response) => {
@@ -50,6 +71,17 @@ $scope.submit = () => {
   }
 
   $scope.addCoins = () => {
-    console.log($scope.coinAmount)
+    if($scope.coinAmount === undefined || $scope.coinName === undefined || Number($scope.coinAmount) === NaN) {
+      alert('Please Enter Valid Info');
+    } else {
+
+      appFactory.addCoins($scope.coinName, $scope.coinAmount, $scope.agentName, (results) => {
+        console.log(results);
+      })
+    }
+  },
+  $scope.choseCoin = (coin) => {
+    $scope.coinName = coin;
+    console.log($scope.coinName)
   }
 });
