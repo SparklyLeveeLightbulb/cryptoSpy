@@ -20,7 +20,9 @@ body{
 tr {
   font-size: 18px;
   font-weight: bold;
+  text-align: center;
 }
+
 
 tr:nth-child(2) {
   background : #29a329;
@@ -32,4 +34,45 @@ tr:nth-child(2) {
 .headers {
   text-align: center;
   font-weight: bold;
+}
+
+.welcome {
+  font-size: 24px;
+}
+
+.widget {
+  padding: 100px;
+  text-align: center;
+  font-size: 14px;
+ 
+}
+
+th {
+  text-align: center;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#display {
+ 
+  height: 150px;
+  width: 1050px;
+  overflow: hidden;
+  position: relative;
+}
+
+.text {
+  
+  cursor: pointer;
+  overflow: hidden;
+  position: absolute;
+  left: 10px;
+  margin-right: 10px;
+  top: 10px;
+}
+span {
+  display: flex;
 }

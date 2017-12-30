@@ -22,7 +22,6 @@ app.factory('appFactory', ($http) => ({
       method: 'GET',
       url: '/getAgentName'
     }).then(function successCallback(response) {
-      console.log(response)
       callback2(response.data)
     }, function errorCallback(response) {
       console.log(response)
@@ -36,6 +35,7 @@ app.factory('appFactory', ($http) => ({
 
 app.controller('cryptoCtrl',($scope, appFactory, $location) => {
 $scope.agentName;
+$scope.coinAmount;
   $scope.coins = [{ coinName: 'Bitcoin', currentValue: 14000, amountOwned: 2 }, { coinName: 'Ethereum', currentValue: 5000, amountOwned: 5 }, { coinName: 'LiteCoin', currentValue: 1300, amountOwned: 2 }];
 $scope.submit = () => {
   appFactory.getOnInit((response) => {
@@ -47,5 +47,9 @@ $scope.submit = () => {
 
   $scope.changeView = (view) => {
    $location.path(view) 
+  }
+
+  $scope.addCoins = () => {
+    console.log($scope.coinAmount)
   }
 });
