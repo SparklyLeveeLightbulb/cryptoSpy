@@ -319,6 +319,35 @@ module.exports = function(app, passport, axios) {
     res.sendFile(path.join(__dirname, '../views', '/main.html'));
   });
 
+  app.get('/getnews', (req, res) => {
+    axios.get('https://newsapi.org/v2/everything', {
+      params: {
+        Q: 'cryptocurrency',
+        sortBy: 'publishedAt',
+        apiKey: '6849c31f48f74869a61c0c2aa68e4eb7'
+      }
+    }).then(news => {
+      console.log('this is news data ', news.data.articles);
+      res.send(news.data.articles);
+    }).catch(err => {
+      console.error('this is a news api error ', err);
+    });
+  });
+
+  app.get('/getcoins', (req, res) => {
+    axios.get('https://min-api.cryptocompare.com/data/pricemultifull', {
+      params: {
+        fsyms: 'BTC,ETH,DASH,LTC,XRP',
+        tsyms: 'USD'
+      }
+    }).then(coins => {
+      console.log('this is coins data ', coins.data.RAW);
+      res.json(coins.data.RAW);
+    }).catch(err => {
+      console.error('this is a coinlist api error ', err);
+    });
+  });
+
   // =====================================
   // LOGOUT ==============================
   // =====================================
