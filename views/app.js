@@ -23,12 +23,16 @@ app.factory('appFactory', ($http) => ({
 
 }));
 
-app.controller('cryptoCtrl',($scope, appFactory) => {
+app.controller('cryptoCtrl',($scope, appFactory, $location) => {
 
-  $scope.coins = [{ coinName: 'Bitcoin', currentValue: 14000, amountOwned: 2 }, { coinName: 'Ethereum', currentValue: 5000, amountOwned: 5 }, { coinName: 'Bitcoin', currentValue: 14000, amountOwned: 2 }];
+  $scope.coins = [{ coinName: 'Bitcoin', currentValue: 14000, amountOwned: 2 }, { coinName: 'Ethereum', currentValue: 5000, amountOwned: 5 }, { coinName: 'LiteCoin', currentValue: 1300, amountOwned: 2 }];
 $scope.submit = () => {
   appFactory.getOnInit((response) => {
     $scope.coins = response;
   })
 }
+
+  $scope.changeView = (view) => {
+   $location.path(view) 
+  }
 });

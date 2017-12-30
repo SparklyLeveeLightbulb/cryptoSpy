@@ -1,14 +1,13 @@
 <!doctype html>
-<html ng-app='login'>
+<html ng-app="login">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
   crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.js"></script>
-<script src="login.js"></script>
-<link rel="stylesheet" type="text/css" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.js"></script>
+  <script src="login.js"></script>
+<link rel="stylesheet" type="text/css" href="/style.css">
 
-<body class='loginbody' ng-controller='loginCtrl'>
-
+<body class='loginbody' ng-controller="loginCtrl">
   <div class="container">
     <div class="row main">
       <div class="panel-heading">
@@ -18,7 +17,7 @@
         </div>
       </div>
       <div class="main-login main-center">
-        <form class="form-horizontal" method="post" action="#">
+        <form class="form-horizontal" method="post" action="/login">
 
 
 
@@ -29,7 +28,7 @@
                 <span class="input-group-addon">
                   <i class="fa fa-users fa" aria-hidden="true"></i>
                 </span>
-                <input ng-model="agent" type="text" class="form-control" name="username" id="username" placeholder="Enter your Agent Name" />
+                <input ng-model='agent' type="text" class="form-control" name="username" id="username" placeholder="Enter your Agent Name" />
               </div>
             </div>
           </div>
@@ -48,7 +47,7 @@
 
 
           <div class="form-group ">
-            <button type="button" class="btn-lg btn-block" id='register'>Log-in</button>
+            <button type="submit" class="btn-lg btn-block" id='register' ng-click="loginAsAgent(agent)">Log-in</button>
           </div>
           <div class="login-register">
             <a href="signup">Sign-Up</a>
