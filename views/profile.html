@@ -2,8 +2,8 @@
 
 
   <div ng-controller='cryptoCtrl' ng-init='submit()' >
-  <h1>Welcome Agent </h1>
-  <button ng-click='submit()'>update Table</button>
+  <h1>Welcome Agent {{agentName}}! </h1>
+
   
   <div class="container-fluid">
     <div class="row">
@@ -70,7 +70,7 @@
             </form>
             <ul class="nav navbar-nav navbar-right">
               <li>
-                <a href="#">Link</a>
+                <a href="/news">Crypto Briefings</a>
               </li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown

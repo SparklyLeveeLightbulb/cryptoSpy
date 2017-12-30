@@ -1,10 +1,19 @@
 // app.use(express.static(__dirname + '/views'));
 const path = require('path');
 module.exports = function(app, passport) {
+  let user;
   
   //fake route to test out
   app.get('/getProfile', (req, res) => {
     res.send([{ coinName: 'Bitcoin', currentValue: 14000, amountOwned: 10 }, { coinName: 'Ethereum', currentValue: 5000, amountOwned: 1 }, { coinName: 'Bitcoin', currentValue: 14000, amountOwned: 5 }])
+  })
+
+  app.get('/news', (req, res) => {
+    res.sendFile(path.join(__dirname, '../views', '/news.html'))
+  })
+
+  app.get('/getAgentName', (req, res) => {
+    res.send(user);
   })
 
   app.get('/', function(req, res) {
@@ -57,6 +66,8 @@ module.exports = function(app, passport) {
   // we will want this protected so you have to be logged in to visit
   // we will use route middleware to verify this (the isLoggedIn function)
   app.get('/profile', isLoggedIn, function(req, res) {
+    user = req.user.agentName
+    console.log(user, 'hey')
     res.sendFile(path.join(__dirname, '../views', '/main.html'));
   });
 
