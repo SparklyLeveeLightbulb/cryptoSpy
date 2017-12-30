@@ -1,8 +1,11 @@
 // app.use(express.static(__dirname + '/views'));
 const path = require('path');
 module.exports = function(app, passport) {
-
   
+  //fake route to test out
+  app.get('/getProfile', (req, res) => {
+    res.send([{ coinName: 'Bitcoin', currentValue: 14000, amountOwned: 10 }, { coinName: 'Ethereum', currentValue: 5000, amountOwned: 1 }, { coinName: 'Bitcoin', currentValue: 14000, amountOwned: 5 }])
+  })
 
   app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, '../views', '/login.html'));
@@ -15,7 +18,8 @@ module.exports = function(app, passport) {
     app.get('/login', function(req, res) {
 
       // render the page and pass in any flash data if it exists
-      res.render('login', { message: req.flash('loginMessage') }); 
+      res.sendFile(path.join(__dirname, '../views', '/login.html'));
+      // res.render('login', { message: req.flash('loginMessage') }); 
   });
 
   // process the login form
@@ -32,7 +36,8 @@ module.exports = function(app, passport) {
   app.get('/signup', function(req, res) {
 
       // render the page and pass in any flash data if it exists
-      res.render('signup', { message: req.flash('signupMessage') });
+    res.sendFile(path.join(__dirname, '../views', '/signup.html'));
+      // res.render('signup', { message: req.flash('signupMessage') });
   });
 
   // process the signup form
@@ -52,7 +57,7 @@ module.exports = function(app, passport) {
   // we will want this protected so you have to be logged in to visit
   // we will use route middleware to verify this (the isLoggedIn function)
   app.get('/profile', isLoggedIn, function(req, res) {
-    res.sendFile(path.join(__dirname, '../views', '/profile.html'));
+    res.sendFile(path.join(__dirname, '../views', '/main.html'));
   });
 
 

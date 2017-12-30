@@ -8,8 +8,16 @@ button {
   color: black;
 }
 
-.loginbody{
+body{
   background-color: black;
   color: #29a329;
+}
+tr {
+  font-size: 18px;
+  font-weight: bold;
+}
 
+tr:nth-child(2) {
+  background : #29a329;
+  color: black;
 }
