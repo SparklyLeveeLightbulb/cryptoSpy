@@ -67,8 +67,10 @@ const Coin = sequelize.define('coin', {
 UserFollowing = sequelize.define('user_following', {
   id: {
     type: Sequelize.INTEGER,
-    primaryKey: true
+    primaryKey: true,
+    autoIncrement: true,
   },
+  coinName: Sequelize.STRING,
   compareValue: Sequelize.INTEGER,
   amountOwned: Sequelize.INTEGER,
   createdAt: {

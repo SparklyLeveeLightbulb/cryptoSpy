@@ -6,9 +6,9 @@ module.exports = function(app, passport, axios) {
   let user;
   
   //fake route to test out
-  // app.get('/getProfile', (req, res) => {
-  //   res.send([{ coinName: 'Bitcoin', currentValue: 14000, amountOwned: 10 }, { coinName: 'Ethereum', currentValue: 5000, amountOwned: 1 }, { coinName: 'Bitcoin', currentValue: 14000, amountOwned: 5 }])
-  // })
+  app.get('/getProfile', (req, res) => {
+    res.send([{ coinName: 'Bitcoin', currentValue: 14000, amountOwned: 10 }, { coinName: 'Ethereum', currentValue: 5000, amountOwned: 1 }, { coinName: 'Bitcoin', currentValue: 14000, amountOwned: 5 }])
+  })
 
   app.get('/news', (req, res) => {
     res.sendFile(path.join(__dirname, '../views', '/news.html'))
@@ -28,6 +28,37 @@ module.exports = function(app, passport, axios) {
       console.log(error);
     });
   })
+  // =========================================================
+  // ADDS USER_FOLLOWING TABLE FOR ALL COINS - INITIAL VALUE 0
+  // =========================================================
+  // app.post('/updateTables', (req, res) => {
+  //   let user = req.body;
+  //   let userId;
+  //   sequelize.query(`SELECT id FROM agents WHERE agentName = '${user}'`)
+  //   .then((response) => {
+  //     response[0].map(el => {
+  //       if (typeof el.id === 'number') {
+  //         userId = el.id;
+  //       }
+  //     })
+  //     sequelize.query(`SELECT id FROM coins WHERE coinName = 'Bitcoin'`)
+  //     .then((response) => {
+  //       response[0].map(el => {
+  //         if (typeof el.id === 'number') {
+  //           coinId = el.id
+  //         }
+  //       });
+  //       console.log(userId, 'userId in .then from coinId')
+  //       console.log(coinId, 'this is coinId');
+  //       sequelize.query(`INSERT INTO user_followings (amountOwned, agentId, coinId) VALUES (0, ${userId}, ${coinId})`)
+  //         .then((response) => {
+  //           console.log(response);
+  //           res.send(response);
+  //         })
+  //     })
+  //     .catch((error) => {
+  //       res.send(error);
+  //     })
 
   // ==================================================
   // RETRIEVES USER INFO FROM COIN_FOLLOW TABLE =======
@@ -42,9 +73,19 @@ module.exports = function(app, passport, axios) {
           userId = el.id;
         }
       })
+            sequelize.query(`SELECT id FROM coins WHERE coinName = 'Bitcoin'`)
+      .then((response) => {
+        response[0].map(el => {
+          if (typeof el.id === 'number') {
+            coinId = el.id
+          }
+        });
+        console.log(userId, 'userId in .then from coinId')
+        console.log(coinId, 'this is coinId');
       console.log(userId, 'this is userId')
         sequelize.query(`SELECT * FROM user_followings WHERE agentId = '${userId}'`)
         .then((response) => {
+          console.log(response, 'response in select * from user_followings');
           res.send(response);
         })
         .catch((error) => {
@@ -56,6 +97,7 @@ module.exports = function(app, passport, axios) {
     })
     
   });
+});
 
   // ==================================================================
   // ADDS SPECIFIC COINS TO USER_FOLLOWINGS TABLE =====================
@@ -83,7 +125,7 @@ module.exports = function(app, passport, axios) {
         });
         console.log(userId, 'userId in .then from coinId')
         console.log(coinId, 'this is coinId');
-          sequelize.query(`INSERT INTO user_followings (amountOwned, agentId, coinId) VALUES (${amount}, ${userId}, ${coinId})`)
+          sequelize.query(`INSERT INTO user_followings (amountOwned, agentId, coinId, coinName, compareValue) VALUES (${amount}, ${userId}, ${coinId}, 'Bitcoin', '12927')`)
           .then((response) => {
             console.log(response);
             res.send(response);
@@ -122,7 +164,7 @@ module.exports = function(app, passport, axios) {
             });
             console.log(userId, 'userId in .then from coinId')
             console.log(coinId, 'this is coinId');
-              sequelize.query(`INSERT INTO user_followings (amountOwned, agentId, coinId) VALUES (${amount}, ${userId}, ${coinId})`)
+              sequelize.query(`INSERT INTO user_followings (amountOwned, agentId, coinId, coinName, compareValue) VALUES (${amount}, ${userId}, ${coinId}, 'Ethereum', '700.83')`)
               .then((response) => {
                 console.log(response);
                 res.send(response);
@@ -161,7 +203,7 @@ module.exports = function(app, passport, axios) {
             });
             console.log(userId, 'userId in .then from coinId')
             console.log(coinId, 'this is coinId');
-              sequelize.query(`INSERT INTO user_followings (amountOwned, agentId, coinId) VALUES (${amount}, ${userId}, ${coinId})`)
+              sequelize.query(`INSERT INTO user_followings (amountOwned, agentId, coinId, coinName, compareValue) VALUES (${amount}, ${userId}, ${coinId}, 'Dash', '994.24')`)
               .then((response) => {
                 console.log(response);
                 res.send(response);
@@ -200,7 +242,7 @@ module.exports = function(app, passport, axios) {
             });
             console.log(userId, 'userId in .then from coinId')
             console.log(coinId, 'this is coinId');
-              sequelize.query(`INSERT INTO user_followings (amountOwned, agentId, coinId) VALUES (${amount}, ${userId}, ${coinId})`)
+              sequelize.query(`INSERT INTO user_followings (amountOwned, agentId, coinId, coinName, compareValue) VALUES (${amount}, ${userId}, ${coinId}, 'Ripple', '1.84')`)
               .then((response) => {
                 console.log(response);
                 res.send(response);
@@ -239,7 +281,7 @@ module.exports = function(app, passport, axios) {
             });
             console.log(userId, 'userId in .then from coinId')
             console.log(coinId, 'this is coinId');
-              sequelize.query(`INSERT INTO user_followings (amountOwned, agentId, coinId) VALUES (${amount}, ${userId}, ${coinId})`)
+              sequelize.query(`INSERT INTO user_followings (amountOwned, agentId, coinId, coinName, compareValue) VALUES (${amount}, ${userId}, ${coinId}, 'Litecoin', '217.72')`)
               .then((response) => {
                 console.log(response);
                 res.send(response);
@@ -317,35 +359,6 @@ module.exports = function(app, passport, axios) {
     user = req.user.agentName
     console.log(user, 'hey')
     res.sendFile(path.join(__dirname, '../views', '/main.html'));
-  });
-
-  app.get('/getnews', (req, res) => {
-    axios.get('https://newsapi.org/v2/everything', {
-      params: {
-        Q: 'cryptocurrency',
-        sortBy: 'publishedAt',
-        apiKey: '6849c31f48f74869a61c0c2aa68e4eb7'
-      }
-    }).then(news => {
-      console.log('this is news data ', news.data.articles);
-      res.send(news.data.articles);
-    }).catch(err => {
-      console.error('this is a news api error ', err);
-    });
-  });
-
-  app.get('/getcoins', (req, res) => {
-    axios.get('https://min-api.cryptocompare.com/data/pricemultifull', {
-      params: {
-        fsyms: 'BTC,ETH,DASH,LTC,XRP',
-        tsyms: 'USD'
-      }
-    }).then(coins => {
-      console.log('this is coins data ', coins.data.RAW);
-      res.json(coins.data.RAW);
-    }).catch(err => {
-      console.error('this is a coinlist api error ', err);
-    });
   });
 
   // =====================================

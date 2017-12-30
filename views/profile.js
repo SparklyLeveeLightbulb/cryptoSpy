@@ -73,9 +73,9 @@ $scope.coinAmount;
 $scope.coins;
 
   $scope.submit = () => {
-  appFactory.getOnInit($scope.agentName,(response) => {
-    console.log(response)
-    $scope.coins = response;
+  appFactory.getOnInit($scope.agentName, (response) => {
+    console.log(response.data)
+    $scope.coins = response.data[0];
   }, (response) => {
     $scope.agentName = response;
   });
