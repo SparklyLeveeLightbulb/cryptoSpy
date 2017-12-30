@@ -3,6 +3,11 @@
   max-height: 400px;
 }
 
+img {
+  max-width: 200px;
+  max-height: 200px;
+}
+
 button {
   background-color: #29a329;
   color: black;
@@ -20,4 +25,11 @@ tr {
 tr:nth-child(2) {
   background : #29a329;
   color: black;
+}
+.media {
+  padding: 10px;
+}
+.headers {
+  text-align: center;
+  font-weight: bold;
 }
