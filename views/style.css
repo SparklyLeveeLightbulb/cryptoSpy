@@ -13,6 +13,18 @@ button {
   color: black;
 }
 
+.textto {
+  border-style: solid;
+  padding: 10px;
+  border-width: 2px;
+  font-weight: bold;
+  font-size: 16px;
+  margin: auto;
+  width: 50%;
+  color: white;
+  border-color: #29a329;
+  text-align: center;
+}
 body{
   background-color: black;
   color: #29a329;
@@ -76,3 +88,4 @@ th {
 span {
   display: flex;
 }
+
