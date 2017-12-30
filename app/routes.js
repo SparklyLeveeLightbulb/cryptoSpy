@@ -6,9 +6,9 @@ module.exports = function(app, passport, axios) {
   let user;
   
   //fake route to test out
-  app.get('/getProfile', (req, res) => {
-    res.send([{ coinName: 'Bitcoin', currentValue: 14000, amountOwned: 10 }, { coinName: 'Ethereum', currentValue: 5000, amountOwned: 1 }, { coinName: 'Bitcoin', currentValue: 14000, amountOwned: 5 }])
-  })
+  // app.get('/getProfile', (req, res) => {
+  //   res.send([{ coinName: 'Bitcoin', currentValue: 14000, amountOwned: 10 }, { coinName: 'Ethereum', currentValue: 5000, amountOwned: 1 }, { coinName: 'Bitcoin', currentValue: 14000, amountOwned: 5 }])
+  // })
 
   app.get('/news', (req, res) => {
     res.sendFile(path.join(__dirname, '../views', '/news.html'))
@@ -32,8 +32,8 @@ module.exports = function(app, passport, axios) {
   // ==================================================
   // RETRIEVES USER INFO FROM COIN_FOLLOW TABLE =======
   // ==================================================
-  app.get('/userCoins', (req, res) => {
-    let user = req.body;
+  app.post('/getProfile', (req, res) => {
+    let user = req.body.user;
     let userId;
     sequelize.query(`SELECT id FROM agents WHERE agentName = '${user}'`)
     .then((response) => {
@@ -45,7 +45,7 @@ module.exports = function(app, passport, axios) {
       console.log(userId, 'this is userId')
         sequelize.query(`SELECT * FROM user_followings WHERE agentId = '${userId}'`)
         .then((response) => {
-          res.send(response[0]);
+          res.send(response);
         })
         .catch((error) => {
           console.log(error);

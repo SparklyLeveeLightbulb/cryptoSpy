@@ -7,25 +7,39 @@ app.component('cryptoProfile', {
 });
 
 app.factory('appFactory', ($http) => ({
-  getOnInit: (callback, callback2) => {
-    //updates user table
-  $http({
-  method: 'GET',
-    url: '/getProfile'
-  }).then(function successCallback(response) {
-    callback(response.data)
-  }, function errorCallback(response) {
-    console.log(response)
-  })
-  //gets userName from server
+  getOnInit: (agent, callback, callback2) => {
+    // updates user table
+    
     $http({
       method: 'GET',
       url: '/getAgentName'
     }).then(function successCallback(response) {
       callback2(response.data)
+     
+      var req = {
+        method: 'POST',
+        url: '/getProfile',
+        headers: {
+          'Content-Type': 'application/JSON'
+        },
+        data: { user: response.data }
+      };
+      console.log(req)
+      $http(req).then(function (results) {
+        callback(results)
+      }, function (results) {
+        callback(results);
+      });
+
     }, function errorCallback(response) {
       console.log(response)
     })
+    
+    
+   
+
+  //gets userName from server
+   
 },
 
 addCoins: (coinName, coinAmount, agent, callback) => {
@@ -56,10 +70,11 @@ app.controller('cryptoCtrl',($scope, appFactory, $location) => {
 $scope.agentName;
 $scope.coinName;
 $scope.coinAmount;
-$scope.coins = [{ coinName: 'Bitcoin', currentValue: 14000, amountOwned: 2 }, { coinName: 'Ethereum', currentValue: 5000, amountOwned: 5 }, { coinName: 'LiteCoin', currentValue: 1300, amountOwned: 2 }];
+$scope.coins;
 
   $scope.submit = () => {
-  appFactory.getOnInit((response) => {
+  appFactory.getOnInit($scope.agentName,(response) => {
+    console.log(response)
     $scope.coins = response;
   }, (response) => {
     $scope.agentName = response;
@@ -80,6 +95,7 @@ $scope.coins = [{ coinName: 'Bitcoin', currentValue: 14000, amountOwned: 2 }, { 
       })
     }
   },
+  
   $scope.choseCoin = (coin) => {
     $scope.coinName = coin;
     console.log($scope.coinName)
