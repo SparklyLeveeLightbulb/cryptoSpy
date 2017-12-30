@@ -74,7 +74,7 @@
 
      
 
-
+        {{coins}}
         <h3 class='headers'>Agent {{agentName}}'s cryptoWallet</h3>
         <table class="table table-bordered">
           <thead>
@@ -92,7 +92,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat='coin in coins'>
+            <tr ng-repeat='coin in coins' coin='coin'>
+              {{coin}}
               <td>
                 {{coin.coinName}}
               </td>
@@ -100,7 +101,7 @@
                 {{coin.amountOwned}}
               </td>
               <td>
-                ${{coin.currentValue * coin.amountOwned}}
+                ${{coin.compareValue * coin.amountOwned}}
               </td>
             </tr>
           
