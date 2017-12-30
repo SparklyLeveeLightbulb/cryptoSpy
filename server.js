@@ -8,7 +8,7 @@ var passport = require('passport');
 var flash = require('connect-flash');
 var cons = require('consolidate');
 var path = require('path');
-
+var axios = require('axios');
 
 
 var morgan = require('morgan');
@@ -50,7 +50,7 @@ require('./config/passport')(passport);
 
 // routes =============================
 
-require('./app/routes.js')(app, passport);
+require('./app/routes.js')(app, passport, axios);
 
 
 

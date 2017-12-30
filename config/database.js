@@ -88,3 +88,5 @@ Coin.belongsToMany(Agent, { through: UserFollowing });
 Agent.sync();
 Coin.sync();
 UserFollowing.sync();
+
+module.exports = sequelize;
