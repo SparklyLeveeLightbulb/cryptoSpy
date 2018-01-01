@@ -27,6 +27,14 @@ app.factory('appFactory', ($http) => ({
       console.log(req)
       $http(req).then(function (results) {
         callback(results)
+        // on initi refreshes coins table
+        $http({
+          method: 'GET',
+          url: 'refreshtables'
+        }).then((response) => {console.log(response)}, (response) => {
+          console.log(response)
+        })
+
       }, function (results) {
         callback(results);
       });
