@@ -51,7 +51,7 @@ const Coin = sequelize.define('coin', {
     primaryKey: true
   },
   coinName: { type: Sequelize.STRING },
-  currentValue: { type: Sequelize.INTEGER},
+  currentValue: { type: Sequelize.STRING},
   lastValue: { type: Sequelize.INTEGER},
   createdAt: {
     type: Sequelize.DATE,
@@ -71,7 +71,7 @@ UserFollowing = sequelize.define('user_following', {
     autoIncrement: true,
   },
   coinName: Sequelize.STRING,
-  compareValue: Sequelize.INTEGER,
+  compareValue: Sequelize.STRING,
   amountOwned: Sequelize.INTEGER,
   createdAt: {
     type: Sequelize.DATE,

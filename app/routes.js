@@ -21,40 +21,37 @@ module.exports = function(app, passport, axios) {
   // This refreshes valuation of coins table ==================
   // ==========================================================
   app.get('/refreshTables', (request, response) => {
-    axios.get('https://api.coinmarketcap.com/v1/ticker/?limit=10')
-    .then((coins) => {
-      // console.log(coins.data, 'thisis coins data');
-      console.log(coins.data[0].price_usd.split('.')[0], 'this is first split trial');
-      let temp = coins.data
-      temp.map(el => {
-        console.log(el);
-        if (el.name === 'Bitcoin') {
-          quick.addToBitcoin(el.price_usd.split('.')[0])
+    axios.get('https://min-api.cryptocompare.com/data/pricemultifull', {
+          params: {
+            fsyms: 'BTC,ETH,DASH,LTC,XRP',
+            tsyms: 'USD'
+          }
+        }).then(coins => {
+          console.log('this is coins data ', coins.data.RAW);
+      let data = coins.data.RAW
+      console.log(data.BTC.USD.PRICE.toString().split('.')[0], 'this is data.btc.usd.price')
+          quick.addToBitcoin(data.BTC.USD.PRICE)
           .catch((error) => {
             console.error(error, 'error in bitcoin');
           });
-        } else if (el.name === 'Ethereum') {
-          quick.addToEthereum(el.price_usd.split('.')[0])
+          quick.addToEthereum(data.ETH.USD.PRICE)
           .catch((error) => {
             console.error(error, 'error in ethereum')
           });
-        } else if (el.name === 'Ripple') {
-          quick.addToRipple(el.price_usd.split('.')[0])
+          quick.addToRipple(data.XRP.USD.PRICE)
           .catch((error) => {
             console.error(error, 'error in ripple')
           });
-        } else if (el.name === 'Dash') {
-          quick.addToDash(el.price_usd.split('.')[0])
+          quick.addToDash(data.DASH.USD.PRICE)
           .catch((error) => {
             console.error(error, 'error in dash')
           });
-        } else if (el.name === 'Litecoin') {
-          quick.addToLitecoin(el.price_usd.split('.')[0])
+          quick.addToLitecoin(data.LTC.USD.PRICE)
           .catch((error) => {
             console.error(error, 'error in litecoin')
           });
-        }
-      })
+        })
+    // });
 
       // quick.addToEthereum()
       // .catch((error) => {
@@ -72,11 +69,10 @@ module.exports = function(app, passport, axios) {
       // .catch((error) => {
       //   console.error(error, 'error in litecoin');
       // });
-    })
     .catch(  (error) => {
       console.error(error, 'error in refreshTables')
     })
-  })
+  });
 
   // ==================================================
   // RETRIEVES USER INFO FROM COIN_FOLLOW TABLE =======
@@ -443,3 +439,9 @@ const isLoggedIn = (req, res, next) => {
   // if they aren't redirect them to the home page
   res.redirect('/');
 }
+
+// .toString().split('.')[0]
+// .toString().split('.')[0]
+// .toString().split('.')[0]
+// .toString().split('.')[0]
+// .toString().split('.')[0]

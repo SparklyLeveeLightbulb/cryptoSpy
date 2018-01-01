@@ -30,7 +30,11 @@ const addToDash = (value) => {
 };
 
 const addToRipple = (value) => {
-  console.log(value);
+  console.log(typeof value, 'value in ripple');
+  let temp = parseInt(value);
+  let current = temp + 1;
+  console.log(current, 'current in ripple')
+  console.log(temp, 'temp in addToRipple')
   return sequelize.query(`INSERT INTO coins (coinName, currentValue) VALUE ('Ripple', ${value})`)
     .then((response) => {
      })
