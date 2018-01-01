@@ -344,6 +344,31 @@ module.exports = function(app, passport, axios) {
       res.sendFile(path.join(__dirname, '../views', '/login.html'));
       // res.render('login', { message: req.flash('loginMessage') }); 
   });
+    app.get('/bitcoin', function(req, res) {
+      res.sendFile(path.join(__dirname, '../views', '/bitcoin.html'));
+
+  });
+
+      
+    
+    app.get('/litecoin', function(req, res) {
+      res.sendFile(path.join(__dirname, '../views', '/litecoin.html'));
+       
+  });
+    app.get('/ethereum', function(req, res) {
+      res.sendFile(path.join(__dirname, '../views', '/ethereum.html'));
+       
+  });
+    app.get('/dash', function(req, res) {
+      res.sendFile(path.join(__dirname, '../views', '/dash.html'));
+       
+  });
+    app.get('/ripple', function(req, res) {
+      res.sendFile(path.join(__dirname, '../views', '/ripple.html'));
+       
+  });
+
+      
 
   // process the login form
   app.post('/login', passport.authenticate('local-login', {
