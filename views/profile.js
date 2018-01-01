@@ -74,7 +74,7 @@ addCoins: (coinName, coinAmount, agent, callback) => {
 
 
 
-app.controller('cryptoCtrl',($scope, appFactory, $location) => {
+app.controller('cryptoCtrl',($scope, appFactory, $window) => {
 $scope.agentName;
 $scope.coinName;
 $scope.coinAmount;
@@ -99,6 +99,7 @@ $scope.coins;
     } else {
 
       appFactory.addCoins($scope.coinName, $scope.coinAmount, $scope.agentName, (results) => {
+        $window.location.reload();
         console.log(results);
       })
     }
