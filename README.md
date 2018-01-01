@@ -28,11 +28,11 @@ npm start
 
 ## Built With
 
-* [AngularJS](https://docs.angularjs.org/api) - Framework used
+* [AngularJS](https://docs.angularjs.org/api) - Framework Used
 * [NPM](https://www.npmjs.com/) - Dependency Management
-* [express](http://expressjs.com/en/api.html) - Server management
+* [express](http://expressjs.com/en/api.html) - Server Management
 * [Passport](http://www.passportjs.org/docs/) - Authentication
-* [Sequelize](http://docs.sequelizejs.com/) - Database management
+* [Sequelize](http://docs.sequelizejs.com/) - Database Management
 
 ## Contributing
 
