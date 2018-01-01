@@ -1,0 +1,59 @@
+const sequelize = require('./database.js');
+
+
+const addToBitcoin = (value) => {
+  console.log('this is being hit its probably your sequelize require');
+  return sequelize.query(`INSERT INTO coins (coinName, currentValue) VALUE ('Bitcoin', ${value})`)
+    .then((response) => {
+     })
+    .catch((error) => {
+      return console.error(error);
+    })
+};
+
+const addToEthereum = (value) => {
+  return sequelize.query(`INSERT INTO coins (coinName, currentValue) VALUE ('Ethereum', ${value})`)
+    .then((response) => {
+     })
+    .catch((error) => {
+      return console.error(error);
+    })
+};
+
+const addToDash = (value) => {
+  return sequelize.query(`INSERT INTO coins (coinName, currentValue) VALUE ('Dash', ${value})`)
+    .then((response) => {
+     })
+    .catch((error) => {
+      return console.error(error);
+    })
+};
+
+const addToRipple = (value) => {
+  console.log(value);
+  return sequelize.query(`INSERT INTO coins (coinName, currentValue) VALUE ('Ripple', ${value})`)
+    .then((response) => {
+     })
+    .catch((error) => {
+      return console.error(error);
+    })
+};
+
+const addToLitecoin = (value) => {
+  return sequelize.query(`INSERT INTO coins (coinName, currentValue) VALUE ('Litecoin', ${value})`)
+    .then((response) => {
+     })
+    .catch((error) => {
+      return console.error(error);
+    })
+};
+
+
+
+
+
+module.exports.addToBitcoin = addToBitcoin;
+module.exports.addToEthereum = addToEthereum;
+module.exports.addToDash = addToDash;
+module.exports.addToRipple = addToRipple;
+module.exports.addToLitecoin = addToLitecoin;
