@@ -89,3 +89,33 @@ span {
   display: flex;
 }
 
+#chart rect {
+  fill: #29a329;
+}
+
+#chart text {
+  fill: white;
+  font: 12px sans-serif;
+  text-anchor: end;
+ 
+}
+
+.axis text {
+  font: 12px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #fff;
+  shape-rendering: crispEdges;
+}
+h2 {
+  text-align: center;
+}
+
+#chart {
+   margin: auto;
+   width: 50%;
+}
+
