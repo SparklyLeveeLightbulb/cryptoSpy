@@ -262,7 +262,8 @@ module.exports = function(app, passport, axios) {
           .then((response) => {
             response[0].map(el => {
               if (typeof el.id === 'number') {
-                coinId = el.id
+                coinId = el.id;
+                currentValue = el.currentValue;
               }
             });
             console.log(userId, 'userId in .then from coinId')
