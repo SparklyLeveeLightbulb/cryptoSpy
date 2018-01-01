@@ -10,7 +10,7 @@ function marquee(a, b) {
     }
     else {
       time = (parseInt(b.position().left, 10) - end_pos) *
-        (6500 / (start_pos - end_pos)); // Increase or decrease speed by changing value 10000
+        (10000 / (start_pos - end_pos)); // Increase or decrease speed by changing value 10000
       b.animate({
         'left': -width
       }, time, 'linear', function () {
