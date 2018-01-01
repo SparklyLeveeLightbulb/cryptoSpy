@@ -69,7 +69,7 @@ module.exports = function(app, passport, axios) {
       // .catch((error) => {
       //   console.error(error, 'error in litecoin');
       // });
-    .catch(  (error) => {
+      .catch(  (error) => {
       console.error(error, 'error in refreshTables')
     })
   });
