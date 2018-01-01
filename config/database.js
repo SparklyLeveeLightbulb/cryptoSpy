@@ -91,4 +91,5 @@ Agent.sync();
 Coin.sync();
 UserFollowing.sync();
 
-module.exports = sequelize;
+module.exports.sequelize = sequelize;
+module.exports.UserFollowing = UserFollowing;

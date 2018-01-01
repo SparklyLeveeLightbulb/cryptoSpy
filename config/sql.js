@@ -1,9 +1,8 @@
-const sequelize = require('./database.js');
+const db = require('./database.js');
 
 
 const addToBitcoin = (value) => {
-  console.log('this is being hit its probably your sequelize require');
-  return sequelize.query(`INSERT INTO coins (coinName, currentValue) VALUE ('Bitcoin', ${value})`)
+  return db.sequelize.query(`INSERT INTO coins (coinName, currentValue) VALUE ('Bitcoin', ${value})`)
     .then((response) => {
      })
     .catch((error) => {
@@ -12,7 +11,7 @@ const addToBitcoin = (value) => {
 };
 
 const addToEthereum = (value) => {
-  return sequelize.query(`INSERT INTO coins (coinName, currentValue) VALUE ('Ethereum', ${value})`)
+  return db.sequelize.query(`INSERT INTO coins (coinName, currentValue) VALUE ('Ethereum', ${value})`)
     .then((response) => {
      })
     .catch((error) => {
@@ -21,7 +20,7 @@ const addToEthereum = (value) => {
 };
 
 const addToDash = (value) => {
-  return sequelize.query(`INSERT INTO coins (coinName, currentValue) VALUE ('Dash', ${value})`)
+  return db.sequelize.query(`INSERT INTO coins (coinName, currentValue) VALUE ('Dash', ${value})`)
     .then((response) => {
      })
     .catch((error) => {
@@ -30,12 +29,7 @@ const addToDash = (value) => {
 };
 
 const addToRipple = (value) => {
-  console.log(typeof value, 'value in ripple');
-  let temp = parseInt(value);
-  let current = temp + 1;
-  console.log(current, 'current in ripple')
-  console.log(temp, 'temp in addToRipple')
-  return sequelize.query(`INSERT INTO coins (coinName, currentValue) VALUE ('Ripple', ${value})`)
+  return db.sequelize.query(`INSERT INTO coins (coinName, currentValue) VALUE ('Ripple', ${value})`)
     .then((response) => {
      })
     .catch((error) => {
@@ -44,7 +38,7 @@ const addToRipple = (value) => {
 };
 
 const addToLitecoin = (value) => {
-  return sequelize.query(`INSERT INTO coins (coinName, currentValue) VALUE ('Litecoin', ${value})`)
+  return db.sequelize.query(`INSERT INTO coins (coinName, currentValue) VALUE ('Litecoin', ${value})`)
     .then((response) => {
      })
     .catch((error) => {
