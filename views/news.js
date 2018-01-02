@@ -3,7 +3,7 @@ const briefings = angular.module('login')
 
 briefings.factory('briefingsFactory', ($http) => ({
   init: (callback) => {
-    //updates user table
+    //http call to get articles 
     $http({
       method: 'GET',
       url: '/getnews'
