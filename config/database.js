@@ -32,7 +32,6 @@ const Agent = sequelize.define('agent', {
   },
   agentName: { type: Sequelize.STRING },
   password: { type: Sequelize.STRING },
-  phoneNumber: { type: Sequelize.INTEGER},
   createdAt: {
     type: Sequelize.DATE,
     defaultValue: Sequelize.NOW
