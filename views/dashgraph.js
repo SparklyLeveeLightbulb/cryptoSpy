@@ -31,7 +31,7 @@ d3.json("https://min-api.cryptocompare.com/data/histoday?fsym=DASH&tsym=USD&limi
     d.time = moment(d.time, 'X').format('MM-DD-YYYY')
   })
   x.domain(data.map(function (d) {
-    console.log(d)
+  
     return d.time
   }));
   y.domain([0, d3.max(data, function (d) {
