@@ -8,14 +8,15 @@ app.component('cryptoProfile', {
 
 app.factory('appFactory', ($http) => ({
   getOnInit: (agent, callback, callback2) => {
-    // updates user table
+    // on init function
+      // gets agentName from Server
     
     $http({
       method: 'GET',
       url: '/getAgentName'
     }).then(function successCallback(response) {
       callback2(response.data)
-     
+     //sends userName for db queries
       var req = {
         method: 'POST',
         url: '/getProfile',
@@ -24,13 +25,13 @@ app.factory('appFactory', ($http) => ({
         },
         data: { user: response.data }
       };
-      console.log(req)
+      
       $http(req).then(function (results) {
         callback(results)
-        // on initi refreshes coins table
+        // on init refreshes coins table
         $http({
           method: 'GET',
-          url: 'refreshtables'
+          url: '/refreshtables'
         }).then((response) => {console.log(response)}, (response) => {
           console.log(response)
         })
@@ -46,10 +47,10 @@ app.factory('appFactory', ($http) => ({
     
    
 
-  //gets userName from server
+ 
    
 },
-
+//adds coins
 addCoins: (coinName, coinAmount, agent, callback) => {
   let url = '/userCoins' + coinName;
     var req = {
@@ -94,19 +95,21 @@ $scope.coins;
   }
 
   $scope.addCoins = () => {
+    //ensures that both code name and amount has been correctly input
     if($scope.coinAmount === undefined || $scope.coinName === undefined || Number($scope.coinAmount) === NaN) {
       alert('Please Enter Valid Info');
     } else {
 
       appFactory.addCoins($scope.coinName, $scope.coinAmount, $scope.agentName, (results) => {
+        //re-renders after adding coin
         $window.location.reload();
-        console.log(results);
+        
       })
     }
   },
   
   $scope.choseCoin = (coin) => {
     $scope.coinName = coin;
-    console.log($scope.coinName)
+    
   }
 });
