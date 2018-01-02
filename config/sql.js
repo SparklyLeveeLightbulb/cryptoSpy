@@ -1,5 +1,10 @@
 const db = require('./database.js');
 
+// ======================================
+// Functions to add current value to coins table on init
+// Should be reworked to insert and then update as opposed to create new entries
+// on each init =========================
+// ======================================
 
 const addToBitcoin = (value) => {
   return db.sequelize.query(`INSERT INTO coins (coinName, currentValue) VALUE ('Bitcoin', ${value})`)

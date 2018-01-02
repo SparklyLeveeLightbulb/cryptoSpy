@@ -12,6 +12,9 @@ module.exports = function(app, passport, axios) {
     res.send([{ coinName: 'Bitcoin', currentValue: 14000, amountOwned: 10 }, { coinName: 'Ethereum', currentValue: 5000, amountOwned: 1 }, { coinName: 'Bitcoin', currentValue: 14000, amountOwned: 5 }])
   })
 
+  // =========================================================
+  // News Page Route =========================================
+  // =========================================================
   app.get('/news', (req, res) => {
     res.sendFile(path.join(__dirname, '../views', '/news.html'))
   })
@@ -19,6 +22,7 @@ module.exports = function(app, passport, axios) {
 
   // ==========================================================
   // This refreshes valuation of coins table ==================
+  // Called on init ===========================================
   // ==========================================================
   app.get('/refreshTables', (request, response) => {
     axios.get('https://min-api.cryptocompare.com/data/pricemultifull', {
@@ -57,6 +61,7 @@ module.exports = function(app, passport, axios) {
 
   // ==================================================
   // RETRIEVES USER INFO FROM COIN_FOLLOW TABLE =======
+  // Has to be post to send user info so DB can query =
   // ==================================================
   app.post('/getProfile', (req, res) => {
     let user = req.body.user;
@@ -86,6 +91,7 @@ module.exports = function(app, passport, axios) {
 
   // ==================================================================
   // ADDS SPECIFIC COINS TO USER_FOLLOWINGS TABLE =====================
+  // Hardcoded to specific 5 coins, but can be refactored =============
   // ==================================================================
   // BITCOIN
   app.post('/userCoinsBitcoin', (req, res) => {
@@ -118,7 +124,7 @@ module.exports = function(app, passport, axios) {
           })
         });
       })
-      // catch for original .then()
+      // catch for bitcoin .then()
       .catch((error) => {
         console.error(error)
         res.send(error);
@@ -156,7 +162,7 @@ module.exports = function(app, passport, axios) {
               })
             });
           })
-          // catch for original .then()
+          // catch for ethereum .then()
           .catch((error) => {
             console.error(error)
             res.send(error);
@@ -194,7 +200,7 @@ module.exports = function(app, passport, axios) {
               })
             });
           })
-          // catch for original .then()
+          // catch for dash .then()
           .catch((error) => {
             console.error(error)
             res.send(error);
@@ -232,7 +238,7 @@ module.exports = function(app, passport, axios) {
               })
             });
           })
-          // catch for original .then()
+          // catch for ripple .then()
           .catch((error) => {
             console.error(error)
             res.send(error);
@@ -270,7 +276,7 @@ module.exports = function(app, passport, axios) {
               })
             });
           })
-          // catch for original .then()
+          // catch for litecoin .then()
           .catch((error) => {
             console.error(error)
             res.send(error);
@@ -281,50 +287,55 @@ module.exports = function(app, passport, axios) {
 // ============================================
 
 
+// ============================================
+// Required to send user to front end =========
+// Ran into a weird scope issue - our only way to get around it
+// ============================================
   app.get('/getAgentName', (req, res) => {
     res.send(user);
   })
 
+
+  // ==========================================
+  // Base Route ===============================
+  // ==========================================
   app.get('/', function(req, res) {
       res.sendFile(path.join(__dirname, '../views', '/login.html'));
   });
+
+    // ======================================
+    // Routes for Graphs ====================
+    // ======================================
+    app.get('/bitcoin', function(req, res) {
+      res.sendFile(path.join(__dirname, '../views', '/bitcoin.html'));
+    });
+
+    app.get('/litecoin', function(req, res) {
+      res.sendFile(path.join(__dirname, '../views', '/litecoin.html'));
+    });
+
+    app.get('/ethereum', function(req, res) {
+      res.sendFile(path.join(__dirname, '../views', '/ethereum.html'));
+    });
+
+    app.get('/dash', function(req, res) {
+      res.sendFile(path.join(__dirname, '../views', '/dash.html'));
+    });
+
+    app.get('/ripple', function(req, res) {
+      res.sendFile(path.join(__dirname, '../views', '/ripple.html'));
+    });
 
     // =====================================
     // LOGIN ===============================
     // =====================================
     // show the login form
     app.get('/login', function(req, res) {
-
       res.sendFile(path.join(__dirname, '../views', '/login.html'));
-      // res.render('login', { message: req.flash('loginMessage') }); 
-  });
-    app.get('/bitcoin', function(req, res) {
-      res.sendFile(path.join(__dirname, '../views', '/bitcoin.html'));
+    });
 
-  });
 
-      
-    
-    app.get('/litecoin', function(req, res) {
-      res.sendFile(path.join(__dirname, '../views', '/litecoin.html'));
-       
-  });
-    app.get('/ethereum', function(req, res) {
-      res.sendFile(path.join(__dirname, '../views', '/ethereum.html'));
-       
-  });
-    app.get('/dash', function(req, res) {
-      res.sendFile(path.join(__dirname, '../views', '/dash.html'));
-       
-  });
-    app.get('/ripple', function(req, res) {
-      res.sendFile(path.join(__dirname, '../views', '/ripple.html'));
-       
-  });
-
-      
-
-  // process the login form
+     // process the login form
   app.post('/login', passport.authenticate('local-login', {
     successRedirect : '/profile', // redirect to the secure profile section
     failureRedirect : '/login', // redirect o the signup page if there is an error
@@ -375,7 +386,6 @@ module.exports = function(app, passport, axios) {
             apiKey: '6849c31f48f74869a61c0c2aa68e4eb7'
           }
         }).then(news => {
-          console.log('this is news data ', news.data.articles);
           res.send(news.data.articles);
         }).catch(err => {
           console.error('this is a news api error ', err);
@@ -389,7 +399,6 @@ module.exports = function(app, passport, axios) {
             tsyms: 'USD'
           }
         }).then(coins => {
-          console.log('this is coins data ', coins.data.RAW);
           res.json(coins.data.RAW);
         }).catch(err => {
           console.error('this is a coinlist api error ', err);
@@ -416,10 +425,4 @@ const isLoggedIn = (req, res, next) => {
 
   // if they aren't redirect them to the home page
   res.redirect('/');
-}
-
-// .toString().split('.')[0]
-// .toString().split('.')[0]
-// .toString().split('.')[0]
-// .toString().split('.')[0]
-// .toString().split('.')[0]
+};

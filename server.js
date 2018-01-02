@@ -12,6 +12,8 @@ var axios = require('axios');
 
 
 var morgan = require('morgan');
+// morgan is an http request logger that we ended up not needing to use, 
+// left it here just incase you find a need to use it.
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
@@ -22,6 +24,7 @@ var configDB = require('./config/database.js');
 
   // connect to whatever cloud hosting service is hosting our mySQL
   // require('./config/passport.js')(passport);
+  // We didn't use a cloud hosting service but this is where that would go
 
 
 // ==================================

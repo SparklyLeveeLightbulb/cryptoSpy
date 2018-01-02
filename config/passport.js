@@ -1,4 +1,11 @@
 // config/passport.js
+
+// ================================================
+// READ THIS  =====================================
+// I incorporated flash messages that we couldn't properly integrate into angularJS
+// but they are there if you can manage to incorporate them.
+// if they are not called in routes.js on login/signup it doesn't break anything.
+// ================================================
 				
 // load all the things we need
 var LocalStrategy   = require('passport-local').Strategy;
